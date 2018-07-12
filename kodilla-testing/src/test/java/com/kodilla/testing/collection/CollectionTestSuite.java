@@ -27,7 +27,8 @@ public class CollectionTestSuite {
         //Given
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         //When
-        ArrayList<Integer> result = oddNumbersExterminator.numbers;
+        ArrayList<Integer> numbers = new ArrayList<>();
+        ArrayList<Integer> result = oddNumbersExterminator.exterminate(numbers);
         System.out.println("Testing if program works without numbers");
         //Then
         Assert.assertEquals(new ArrayList<>(), result);
@@ -37,11 +38,12 @@ public class CollectionTestSuite {
         //Given
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         //When
-        oddNumbersExterminator.numbers.add(3);
-        oddNumbersExterminator.numbers.add(5);
-        oddNumbersExterminator.numbers.add(6);
-        oddNumbersExterminator.numbers.add(30);
-        oddNumbersExterminator.exterminate(oddNumbersExterminator.numbers);
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(3);
+        numbers.add(5);
+        numbers.add(6);
+        numbers.add(30);
+        oddNumbersExterminator.exterminate(numbers);
         ArrayList<Integer> result = oddNumbersExterminator.oddNumbers;
         ArrayList<Integer> testingList = new ArrayList<>();
         testingList.add(6);
