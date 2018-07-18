@@ -7,7 +7,7 @@ public class CalculateStatistics {
     private int averageUserComment;
     private int averageCommentPost;
 
-    Statistics statistics;
+    private Statistics statistics;
     public CalculateStatistics(Statistics statistics){
         this.statistics = statistics;
     }
