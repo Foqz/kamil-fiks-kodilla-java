@@ -10,28 +10,47 @@ import java.util.List;
 public class WorldTestSuite {
     @Test
     public void testGetPeopleQuantity(){
-        List<Country> countries = new ArrayList<>();
-        List<ArrayList> continents = new ArrayList<>();
-        Country poland = new Country("2");
-        Country deutchland = new Country("3");
+        //Given
+        List<Country> countries_europe = new ArrayList<>();
+        List<Country> countries_asia = new ArrayList<>();
+        List<Country> countries_africa = new ArrayList<>();
+
+        List<Continent> continents = new ArrayList<>();
+
+        Country poland = new Country("5");
+        Country deutchland = new Country("5");
+        Country holland = new Country("5");
         Country russia = new Country("2");
+        Country china = new Country("4");
+        Country afghanistan = new Country("2");
         Country gambia = new Country("1");
+        Country kongo = new Country("3");
+        Country nigeria = new Country("11");
 
-        countries.add(poland);
-        countries.add(deutchland);
-        countries.add(russia);
-        countries.add(gambia);
+        countries_europe.add(poland);
+        countries_europe.add(deutchland);
+        countries_europe.add(holland);
+        countries_asia.add(russia);
+        countries_asia.add(china);
+        countries_asia.add(afghanistan);
+        countries_africa.add(gambia);
+        countries_africa.add(kongo);
+        countries_africa.add(nigeria);
 
-        continents.add(countries);
+        Continent europe = new Continent(countries_europe);
+        Continent asia = new Continent(countries_asia);
+        Continent africa = new Continent(countries_africa);
+
+        continents.add(europe);
+        continents.add(asia);
+        continents.add(africa);
+
+        World world = new World(continents);
 
         //When
-        BigDecimal totalPeople = BigDecimal.ZERO;
-        for(int n = 0; n <worldList.size(); n++) {
-            totalPeople = totalPeople.add(world.getPeopleQuantity());
-        }
+        BigDecimal totalPeople = world.getPeopleQuantity();
         //Then
-        BigDecimal expectedPeople = new BigDecimal("10");
+        BigDecimal expectedPeople = new BigDecimal("38");
         Assert.assertEquals(expectedPeople,totalPeople);
-
     }
 }
