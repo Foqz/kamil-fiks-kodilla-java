@@ -14,6 +14,6 @@ public class ArrayOperationsTestSuite {
         //When
         double testAverage = ArrayOperations.getAverage(numbers);
         //Then
-        Assert.assertEquals(14.00,testAverage,0);
+        Assert.assertEquals(14.5,testAverage,0);
     }
 }

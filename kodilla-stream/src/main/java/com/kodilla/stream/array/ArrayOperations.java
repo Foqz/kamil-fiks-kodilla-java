@@ -9,7 +9,7 @@ public interface ArrayOperations {
         IntStream.range(0,numbers.length)
                 .map(n -> numbers[n])
                 .forEach(System.out::println);
-        int sum = IntStream.range(0,numbers.length)
+        double sum = IntStream.range(0,numbers.length)
                 .map(n -> numbers[n])
                 .sum();
         double average = sum/numbers.length;
