@@ -89,8 +89,8 @@ public class BoardTestSuite {
         //When
         User user = new User("developer1", "John Smith");
         List<Task> tasks = project.getTaskLists().stream()
-                .flatMap(l -> l.getTasks().stream())
-                .filter(t -> t.getAssignedUser().equals(user))
+                .flatMap(taskList -> taskList.getTasks().stream())
+                .filter(theTask -> theTask.getAssignedUser().equals(user))
                 .collect(toList());
         //Then
         Assert.assertEquals(2, tasks.size());
@@ -141,16 +141,16 @@ public class BoardTestSuite {
         //When
         List<TaskList> inProgressTasks = new ArrayList<>();
         inProgressTasks.add(new TaskList("In progress"));
-        double sum = project.getTaskLists().stream()
+        double average = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
                 .mapToDouble(task -> task.getCreated().until(LocalDate.now()).getDays())
-                .sum();
-        double amount = project.getTaskLists().stream()
-                .filter(inProgressTasks::contains)
-                .flatMap(tl -> tl.getTasks().stream())
-                .count();
-        double average = sum/amount;
+                .map(days -> {
+                    System.out.println(days);
+                    return days;
+                })
+                .average().orElse(0);
+        System.out.println(average);
         //Then
         Assert.assertEquals(10.0,average,0);
     }
