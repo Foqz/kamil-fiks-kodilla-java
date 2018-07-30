@@ -1,35 +1,89 @@
 package com.kodilla.rps;
+import java.util.Scanner;
 
 public class WinCalculator {
-    private int userMove;
-    private int compMove;
-
-    public WinCalculator(int userMove, int compMove) {
-        this.userMove = userMove;
-        this.compMove = compMove;
-    }
-    // 4 - tie 5 -- user win 6 - comp win
-    public int calculator (){
-        int roundWinner = 99999;
-        if (userMove == 1 && compMove == 1 ){
-            roundWinner = 4;
-        } else if (userMove == 2 && compMove == 2 ){
-            roundWinner = 4;
-        } else if (userMove == 3 && compMove == 3 ){
-            roundWinner = 4;
-        } else if (userMove == 1 && compMove == 2 ){
-            roundWinner = 6;
-        } else if (userMove == 1 && compMove == 3){
-            roundWinner = 5;
-        }else if (userMove == 2 && compMove == 1) {
-            roundWinner = 5;
-        }else if (userMove == 2 && compMove == 3) {
-            roundWinner = 6;
-        } else if (userMove == 3 && compMove == 1) {
-            roundWinner = 6;
-        }else if (userMove == 3 && compMove == 2) {
-            roundWinner = 5;
+    public  static int compareMoves(UserOptions playerMove, UserOptions computerMove) {
+        if (playerMove == computerMove) {
+            return 0;
+        } else if (playerMove == UserOptions.ROCK && computerMove == UserOptions.PAPER) {
+            return 2;
+        } else if (playerMove == UserOptions.ROCK && computerMove == UserOptions.SCISSORS) {
+            return 1;
+        } else if (playerMove == UserOptions.SCISSORS && computerMove == UserOptions.ROCK) {
+            return 2;
+        } else if (playerMove == UserOptions.SCISSORS && computerMove == UserOptions.PAPER) {
+            return 1;
+        } else if (playerMove == UserOptions.PAPER && computerMove == UserOptions.SCISSORS) {
+            return 2;
+        } else {
+            return 1;
         }
-            return roundWinner;
+    }
+    public static void gameMechanics(int rounds) {
+        int winsPlayer = 0;
+        int winsComputer = 0;
+        int roundCount = 1;
+        while (roundCount < rounds + 1) {
+            Computer computer = new Computer();
+            UserOptions playerMove = UserDialogs.getUserSelection();
+            UserOptions computerMove = computer.getComputerMove();
+
+            if (playerMove == UserOptions.QUIT) {
+                while (true) {
+                    System.out.println("Do you really want to quit? Y/N ?");
+                    Scanner scanner = new Scanner(System.in);
+                    String s = scanner.nextLine().toUpperCase();
+                    switch (s) {
+                        case "Y":
+                            System.exit(0);
+                        case "N":
+                            gameMechanics(rounds);
+                        default:
+                            System.out.println("Enter correct Chars!");
+                    }
+                }
+            } else if(playerMove == UserOptions.NEW_GAME) {
+                while(true) {
+                    System.out.println("Do you really want to start a new game  Y/N ? " );
+                    Scanner scanner = new Scanner(System.in);
+                    String s = scanner.nextLine().toUpperCase();
+                    switch (s) {
+                        case "Y":
+                            RpsRunner.gameApplication();
+                        case "N":
+                            gameMechanics(rounds);
+                        default:
+                            System.out.println("Enter correct Chars!");
+                    }
+                }
+            } else {
+                int roundResult = compareMoves(playerMove, computerMove);
+                if (roundResult == 0) {
+                    System.out.println("Player chose " + playerMove + " and computer chose " + computerMove);
+                    System.out.println("There was a tie");
+                    roundCount++;
+                    System.out.println("Player wins: " + winsPlayer + ", computer wins: " + winsComputer + ", round number: " + roundCount);
+                } else if (roundResult == 1) {
+                    System.out.println("Player chose " + playerMove + " and computer chose " + computerMove);
+                    System.out.println("Player wins !");
+                    winsPlayer++;
+                    roundCount++;
+                    System.out.println("Player wins: " + winsPlayer + ", computer wins: " + winsComputer + ", round number: " + roundCount);
+                } else {
+                    System.out.println("Player chose " + playerMove + " and computer chose " + computerMove);
+                    System.out.println("Computer Wins");
+                    winsComputer++;
+                    roundCount++;
+                    System.out.println("Player wins: " + winsPlayer + ", computer wins: " + winsComputer + ", round number: " + roundCount);
+                }
+            }
+        }
+        if (winsPlayer > winsComputer) {
+            System.out.println("Player have won !");
+        } else if (winsComputer > winsPlayer) {
+            System.out.println("Computer has won !");
+        } else  {
+            System.out.println("There was a Tie !");
+        }
     }
 }
