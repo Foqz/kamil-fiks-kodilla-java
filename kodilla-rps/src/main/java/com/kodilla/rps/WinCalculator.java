@@ -1,89 +1,50 @@
 package com.kodilla.rps;
-import java.util.Scanner;
 
 public class WinCalculator {
-    public  static int compareMoves(UserOptions playerMove, UserOptions computerMove) {
+    public static RoundResult compareMoves(UserOptions playerMove, UserOptions computerMove) {
         if (playerMove == computerMove) {
-            return 0;
+            return RoundResult.TIE;
         } else if (playerMove == UserOptions.ROCK && computerMove == UserOptions.PAPER) {
-            return 2;
+            return RoundResult.COMPUTERWIN;
         } else if (playerMove == UserOptions.ROCK && computerMove == UserOptions.SCISSORS) {
-            return 1;
+            return RoundResult.PLAYERWIN;
         } else if (playerMove == UserOptions.SCISSORS && computerMove == UserOptions.ROCK) {
-            return 2;
+            return RoundResult.COMPUTERWIN;
         } else if (playerMove == UserOptions.SCISSORS && computerMove == UserOptions.PAPER) {
-            return 1;
+            return RoundResult.PLAYERWIN;
         } else if (playerMove == UserOptions.PAPER && computerMove == UserOptions.SCISSORS) {
-            return 2;
+            return RoundResult.COMPUTERWIN;
         } else {
-            return 1;
+            return RoundResult.PLAYERWIN;
         }
     }
-    public static void gameMechanics(int rounds) {
-        int winsPlayer = 0;
-        int winsComputer = 0;
-        int roundCount = 1;
-        while (roundCount < rounds + 1) {
+    public static void gameMechanics(int rounds,int difficulty) {
+        int playerWins = 0;
+        int computerWins = 0;
+        int roundCount = 0;
+        while (roundCount < rounds) {
             Computer computer = new Computer();
             UserOptions playerMove = UserDialogs.getUserSelection();
-            UserOptions computerMove = computer.getComputerMove();
-
+            UserOptions computerMove = computer.getComputerMove(difficulty,playerMove);
             if (playerMove == UserOptions.QUIT) {
-                while (true) {
-                    System.out.println("Do you really want to quit? Y/N ?");
-                    Scanner scanner = new Scanner(System.in);
-                    String s = scanner.nextLine().toUpperCase();
-                    switch (s) {
-                        case "Y":
-                            System.exit(0);
-                        case "N":
-                            gameMechanics(rounds);
-                        default:
-                            System.out.println("Enter correct Chars!");
-                    }
-                }
+                UserDialogs.quit();
             } else if(playerMove == UserOptions.NEW_GAME) {
-                while(true) {
-                    System.out.println("Do you really want to start a new game  Y/N ? " );
-                    Scanner scanner = new Scanner(System.in);
-                    String s = scanner.nextLine().toUpperCase();
-                    switch (s) {
-                        case "Y":
-                            RpsRunner.gameApplication();
-                        case "N":
-                            gameMechanics(rounds);
-                        default:
-                            System.out.println("Enter correct Chars!");
-                    }
-                }
+                UserDialogs.newGame();
             } else {
-                int roundResult = compareMoves(playerMove, computerMove);
-                if (roundResult == 0) {
-                    System.out.println("Player chose " + playerMove + " and computer chose " + computerMove);
-                    System.out.println("There was a tie");
-                    roundCount++;
-                    System.out.println("Player wins: " + winsPlayer + ", computer wins: " + winsComputer + ", round number: " + roundCount);
-                } else if (roundResult == 1) {
-                    System.out.println("Player chose " + playerMove + " and computer chose " + computerMove);
-                    System.out.println("Player wins !");
-                    winsPlayer++;
-                    roundCount++;
-                    System.out.println("Player wins: " + winsPlayer + ", computer wins: " + winsComputer + ", round number: " + roundCount);
+                RoundResult roundResult = compareMoves(playerMove, computerMove);
+                roundCount++;
+                if (roundResult == RoundResult.TIE) {
+                    UserDialogs.showMoves(playerMove,computerMove,roundResult);
+                } else if (roundResult == RoundResult.PLAYERWIN) {
+                    UserDialogs.showMoves(playerMove,computerMove,roundResult);
+                    playerWins++;
                 } else {
-                    System.out.println("Player chose " + playerMove + " and computer chose " + computerMove);
-                    System.out.println("Computer Wins");
-                    winsComputer++;
-                    roundCount++;
-                    System.out.println("Player wins: " + winsPlayer + ", computer wins: " + winsComputer + ", round number: " + roundCount);
+                    UserDialogs.showMoves(playerMove,computerMove,roundResult);
+                    computerWins++;
                 }
+                UserDialogs.showStatistics(playerWins,computerWins,roundCount);
             }
         }
-        if (winsPlayer > winsComputer) {
-            System.out.println("Player have won !");
-        } else if (winsComputer > winsPlayer) {
-            System.out.println("Computer has won !");
-        } else  {
-            System.out.println("There was a Tie !");
-        }
+        UserDialogs.showFinalStatistics(playerWins,computerWins);
     }
 }
