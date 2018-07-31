@@ -7,7 +7,6 @@ public class UserDialogs {
     private String username;
     private int roundCount;
 
-
     public static UserOptions getUserSelection() {
         Scanner scanner = new Scanner(System.in);
         while (true){
@@ -116,7 +115,6 @@ public class UserDialogs {
     public String getUsername() {
         return username;
     }
-
     public int getRoundCount() {
         return roundCount;
     }
