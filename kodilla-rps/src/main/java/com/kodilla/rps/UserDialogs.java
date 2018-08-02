@@ -122,7 +122,7 @@ public class UserDialogs {
         System.out.println("To play use keys:\n R-ROCK\n P-PAPER\n S-SCISSORS\n Q-End the game\n N-new game");
     }
     public int difficultySetter(){
-        System.out.println("Please select difficulty level \n1-Easy \n2-Hardcore(Computer Cheats!)");
+        System.out.println("Please select difficulty level \n1-Normal \n2-Hardcore(Computer Cheats!)");
         Scanner difficultyScan = new Scanner(System.in);
         difficulty = difficultyScan.nextInt();
         return difficulty;
