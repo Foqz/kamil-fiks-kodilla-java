@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SudokuRow {
     ArrayList<SudokuElement> columns = new ArrayList<>();
     public SudokuRow() {
-        for(int c = 0; c < 9; c++) {
+        for(int c = 1; c < 10; c++) {
             columns.add(new SudokuElement(-1));
         }
     }

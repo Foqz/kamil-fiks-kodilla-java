@@ -12,7 +12,7 @@ public class SudokuElement {
     public String toString() {
         if (value == -1) {
             return "   ";
-        }else {
+        } else {
             return " "+ value + " ";
         }
     }

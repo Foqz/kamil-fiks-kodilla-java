@@ -6,11 +6,15 @@ import sun.nio.cs.US_ASCII;
 import java.util.Scanner;
 
 public class UserDialogs {
+    public void welcomePrinter() {
+        System.out.println("Welcome to SudokuSolver by Kamil Fiks!");
+    }
 
     public static UserOptions getUserSelection() {
         Scanner scanner = new Scanner(System.in);
-        String s = scanner.nextLine();
+
         while (true) {
+            String s = scanner.nextLine();
             switch (s) {
                 case "-1": return UserOptions.NEGATIVEONE;
                 case "1": return UserOptions.ONE;

@@ -3,8 +3,10 @@ package com.kodilla.sudoku;
 public class SudokuRunner {
     public static void main(String[] args) {
         SudokuBoard sudokuBoard = new SudokuBoard();
-        System.out.println(sudokuBoard);
-        sudokuBoard.setSudokuElement();
+        UserDialogs userDialogs = new UserDialogs();
+        userDialogs.welcomePrinter();
+//        sudokuBoard.setSudokuElement(); <- temporary disabled
+        sudokuBoard.exampleFill();
         System.out.println(sudokuBoard);
     }
 //        boolean gameFinished = false;
