@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CompanyDaoTestSuite {
     @Autowired
     CompanyDao companyDao;
-
+    @Autowired
+    EmployeeDao employeeDao;
     @Test
     public void testSaveManyToMany() {
         //Given
@@ -60,5 +63,38 @@ public class CompanyDaoTestSuite {
             //do nothing
         }
     }
+    @Test
+    public void testNamedQueries() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
 
+        Company softwareMachine = new Company("Software Machine");
+
+        softwareMachine.getEmployees().add(johnSmith);
+        softwareMachine.getEmployees().add(stephanieClarckson);
+        softwareMachine.getEmployees().add(lindaKovalsky);
+
+        johnSmith.getCompanies().add(softwareMachine);
+        stephanieClarckson.getCompanies().add(softwareMachine);
+        lindaKovalsky.getCompanies().add(softwareMachine);
+        companyDao.save(softwareMachine);
+
+        int softwareMachineId = softwareMachine.getId();
+
+        //When
+        List<Employee> searchedLastnameList = employeeDao.searchEmployeeWithLastName("Smith");
+        List<Company> searchedCompanyWithThreeLetters = companyDao.searchCompanyWithFirstThreeChars("sof%");
+
+
+        //Then
+        try {
+            Assert.assertEquals(1,searchedLastnameList.size());
+            Assert.assertEquals(1,searchedCompanyWithThreeLetters.size());
+        }finally {
+            //cleanup
+            companyDao.delete(softwareMachineId);
+        }
+    }
 }
