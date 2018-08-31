@@ -12,7 +12,6 @@ public class Product {
     private String name;
     private List<Item> items = new ArrayList<>();
 
-
     public Product () {
 
     }
@@ -24,7 +23,7 @@ public class Product {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "ID",unique = true)
+    @Column(name = "ID")
     public int getId() {
         return id;
     }
@@ -32,6 +31,7 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
+
     @NotNull
     @Column(name = "NAME")
     public String getName() {
@@ -44,7 +44,6 @@ public class Product {
     @OneToMany (
             targetEntity = Item.class,
             mappedBy = "product",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     public List<Item> getItems() {

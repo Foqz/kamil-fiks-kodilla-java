@@ -18,8 +18,8 @@ public class Item {
 
     }
 
-    public Item(Product product, BigDecimal price, int quantity, BigDecimal value) {
-        this.product = product;
+    public Item(BigDecimal price, int quantity, BigDecimal value) {
+
         this.price = price;
         this.quantity = quantity;
         this.value = value;
@@ -29,7 +29,7 @@ public class Item {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "ID",unique = true)
+    @Column(name = "ID")
     public int getId() {
         return id;
     }
