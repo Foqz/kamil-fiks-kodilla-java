@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SudokuBoard {
-    private static ArrayList<SudokuRow> rows = new ArrayList<>();
-    public SudokuBoard(){
+    private ArrayList<SudokuRow> rows = new ArrayList<>();
+    SudokuBoard(){
         for (int r = 1; r < 10 ; r++) {
             rows.add(new SudokuRow());
         }
     }
-    public SudokuElement getSudokuElement(int row, int col) {
+    SudokuElement getSudokuElement(int row, int col) {
         return rows.get(row).getSudokuElement(col);
     }
 
-    public static void setSudokuElement() {
+    private void setSudokuElement() {
         boolean isNewelement = true;
         while (isNewelement ) {
             EnumToInt enumToInt = null;
@@ -42,46 +42,66 @@ public class SudokuBoard {
             }
         }
     }
-    public static void exampleFill() {
-        rows.get(0).setSudokuElement(0,new SudokuElement(2));
-        rows.get(0).setSudokuElement(2,new SudokuElement(9));
-        rows.get(0).setSudokuElement(6,new SudokuElement(6));
-        rows.get(1).setSudokuElement(1,new SudokuElement(4));
-        rows.get(1).setSudokuElement(3,new SudokuElement(8));
-        rows.get(1).setSudokuElement(4,new SudokuElement(7));
-        rows.get(1).setSudokuElement(7,new SudokuElement(1));
-        rows.get(1).setSudokuElement(8,new SudokuElement(2));
-        rows.get(2).setSudokuElement(0,new SudokuElement(8));
-        rows.get(2).setSudokuElement(4,new SudokuElement(1));
-        rows.get(2).setSudokuElement(5,new SudokuElement(9));
-        rows.get(2).setSudokuElement(7,new SudokuElement(4));
-        rows.get(3).setSudokuElement(1,new SudokuElement(3));
-        rows.get(3).setSudokuElement(3,new SudokuElement(7));
-        rows.get(3).setSudokuElement(6,new SudokuElement(8));
-        rows.get(3).setSudokuElement(8,new SudokuElement(1));
-        rows.get(4).setSudokuElement(1,new SudokuElement(6));
-        rows.get(4).setSudokuElement(2,new SudokuElement(5));
-        rows.get(4).setSudokuElement(5,new SudokuElement(8));
-        rows.get(4).setSudokuElement(7,new SudokuElement(3));
-        rows.get(5).setSudokuElement(0,new SudokuElement(1));
-        rows.get(5).setSudokuElement(4,new SudokuElement(3));
-        rows.get(5).setSudokuElement(8,new SudokuElement(7));
-        rows.get(6).setSudokuElement(3,new SudokuElement(6));
-        rows.get(6).setSudokuElement(4,new SudokuElement(5));
-        rows.get(6).setSudokuElement(6,new SudokuElement(7));
-        rows.get(6).setSudokuElement(8,new SudokuElement(9));
-        rows.get(7).setSudokuElement(0,new SudokuElement(6));
-        rows.get(7).setSudokuElement(2,new SudokuElement(4));
-        rows.get(7).setSudokuElement(7,new SudokuElement(2));
-        rows.get(8).setSudokuElement(1,new SudokuElement(8));
-        rows.get(8).setSudokuElement(3,new SudokuElement(3));
-        rows.get(8).setSudokuElement(5,new SudokuElement(1));
-        rows.get(8).setSudokuElement(6,new SudokuElement(4));
-        rows.get(8).setSudokuElement(7,new SudokuElement(5));
+    private static final Integer EMPTY = -1;
+    private boolean isInRow(int row, Integer number) {
+        for(int i = 0; i <9 ; i++)
+            if(getSudokuElement(row,i).getValue()==number) {
+                return true;
+            }
+        return false;
     }
 
+    private boolean isInCol(int col, Integer number) {
+        for (int j = 0; j <9 ; j ++)
+            if (getSudokuElement(j,col).getValue()==number) {
+                return true;
+            }
+        return false;
+    }
+    private boolean isInBox(int row, int col, Integer number) {
+        int r = row - row % 3 ;
+        int c = col - col % 3 ;
+        for (int i = r; i < r + 3 ; i++)
+            for (int j = c ; j < c +3; j++) {
+                if(getSudokuElement(i,j).getValue() == number)
+                    return true;
+            }
+        return false;
+    }
 
+    private boolean isOk(int row, int col, Integer number) {
+        return !isInRow(row,number) && !isInCol(col,number) && !isInBox(row,col,number);
+    }
+    boolean solve() {
+        boolean changed = true;
+        while (changed) {
+            changed = false;
+            for (int row = 0; row < 9; row++) {
+                for (int col = 0; col < 9; col++) {
+                    if (getSudokuElement(row, col).getValue() == EMPTY) {
+                        for (Integer num = 1; num <= 9; num++) {
+                            if (!isOk(row, col, num)) {
+                                getSudokuElement(row, col).getPossibles().remove(num);
+                            }
+                        }
 
+                    }
+                }
+            }
+            for (int row = 0; row < 9; row++) {
+                for (int col = 0; col < 9; col++) {
+                    if (getSudokuElement(row, col).getValue() == EMPTY) {
+                        if (getSudokuElement(row, col).getPossibles().size() == 1) {
+                            getSudokuElement(row, col).setValue(getSudokuElement(row, col).getPossibles().get(0));
+                            changed = true;
+                        }
+
+                    }
+                }
+            }
+        }
+        return true;
+    }
     @Override
     public String toString() {
         String s = "-------------------------------------\n";
@@ -97,12 +117,4 @@ public class SudokuBoard {
         }
         return s;
     }
-//    public SudokuBoard deepCopy() throws CloneNotSupportedException {
-//        SudokuBoard clonedBoard = (SudokuBoard)super.clone();
-//        clonedBoard.rows = new ArrayList<>();
-//        for (SudokuRow theRows : rows) {
-//            SudokuRow clonedRow = new SudokuRow();
-//        }
-//        return clonedBoard;
-//    }
 }
