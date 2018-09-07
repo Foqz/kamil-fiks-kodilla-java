@@ -12,5 +12,8 @@ public enum  UserOptions {
     EIGHT,
     NINE,
     NEW_BOARD,
-    QUIT;
+    QUIT,
+    EXAMPLE,
+    OWN_BOARD,
+    SOLVE;
 }

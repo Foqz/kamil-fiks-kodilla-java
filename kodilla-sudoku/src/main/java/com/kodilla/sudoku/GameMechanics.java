@@ -1,6 +1,70 @@
 package com.kodilla.sudoku;
 
+import java.util.Scanner;
+
 public class GameMechanics{
+
+    private static final Integer EMPTY = -1;
+
+
+    private boolean isInRow(int row, Integer number,SudokuBoard sudokuBoard) {
+        for(int i = 0; i <9 ; i++)
+            if(sudokuBoard.getSudokuElement(row,i).getValue()==number) {
+                return true;
+            }
+        return false;
+    }
+    private boolean isInCol(int col, Integer number,SudokuBoard sudokuBoard) {
+        for (int j = 0; j <9 ; j ++)
+            if (sudokuBoard.getSudokuElement(j,col).getValue()==number) {
+                return true;
+            }
+        return false;
+    }
+    private boolean isInBox(int row, int col, Integer number,SudokuBoard sudokuBoard) {
+        int r = row - row % 3 ;
+        int c = col - col % 3 ;
+        for (int i = r; i < r + 3 ; i++)
+            for (int j = c ; j < c +3; j++) {
+                if(sudokuBoard.getSudokuElement(i,j).getValue() == number)
+                    return true;
+            }
+        return false;
+    }
+
+    private boolean isOk(int row, int col, Integer number,SudokuBoard sudokuBoard) {
+        return !isInRow(row,number,sudokuBoard) && !isInCol(col,number,sudokuBoard) && !isInBox(row,col,number,sudokuBoard);
+    }
+    boolean solve(SudokuBoard sudokuBoard) {
+        boolean changed = true;
+        while (changed) {
+            changed = false;
+            for (int row = 0; row < 9; row++) {
+                for (int col = 0; col < 9; col++) {
+                    if (sudokuBoard.getSudokuElement(row, col).getValue() == EMPTY) {
+                        for (Integer num = 1; num <= 9; num++) {
+                            if (!isOk(row, col, num,sudokuBoard)) {
+                                sudokuBoard.getSudokuElement(row, col).getPossibles().remove(num);
+                            }
+                        }
+
+                    }
+                }
+            }
+            for (int row = 0; row < 9; row++) {
+                for (int col = 0; col < 9; col++) {
+                    if (sudokuBoard.getSudokuElement(row, col).getValue() == EMPTY) {
+                        if (sudokuBoard.getSudokuElement(row, col).getPossibles().size() == 1) {
+                            sudokuBoard.getSudokuElement(row, col).setValue(sudokuBoard.getSudokuElement(row, col).getPossibles().get(0));
+                            changed = true;
+                        }
+
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
     public SudokuBoard exampleFill(SudokuBoard sudokuBoard) {
         sudokuBoard.getSudokuElement(0,0).setValue(2);

@@ -1,7 +1,7 @@
 package com.kodilla.sudoku;
 
 public class EnumToInt {
-    public static int intScannerOutput (UserOptions userOptions) {
+    public int scanToInt(UserOptions userOptions) {
         if (userOptions == UserOptions.NEGATIVEONE) {
             return  -1;
         } else if (userOptions == UserOptions.ONE) {
