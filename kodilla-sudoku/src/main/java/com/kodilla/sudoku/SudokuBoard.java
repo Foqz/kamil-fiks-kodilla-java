@@ -4,42 +4,44 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SudokuBoard {
+
     private ArrayList<SudokuRow> rows = new ArrayList<>();
-    SudokuBoard(){
+
+    public SudokuBoard(){
         for (int r = 1; r < 10 ; r++) {
             rows.add(new SudokuRow());
         }
     }
-    SudokuElement getSudokuElement(int row, int col) {
+
+    public SudokuElement getSudokuElement(int row, int col) {
         return rows.get(row).getSudokuElement(col);
     }
 
-    private void setSudokuElement() {
+    public void setSudokuElement() {
         boolean isNewelement = true;
-        while (isNewelement) {
-            EnumToInt enumToInt = null;
+        while (true) {
             System.out.println("Please enter row");
-            UserOptions setRow = UserDialogs.getUserSelection();
-            int row = enumToInt.scanToInt(setRow);
+            int row = UserDialogs.getUserSelection();
             System.out.println("Please enter col");
-            UserOptions setCol = UserDialogs.getUserSelection();
-            int col = enumToInt.scanToInt(setCol);
+            int col = UserDialogs.getUserSelection();
             System.out.println("Please enter Sudoku Element");
-            UserOptions setSudokuElement = UserDialogs.getUserSelection();
-            SudokuElement sudokuElement = new SudokuElement(enumToInt.scanToInt(setSudokuElement));
+            SudokuElement sudokuElement = new SudokuElement(UserDialogs.getUserSelection());
             rows.get(row - 1).setSudokuElement(col - 1, sudokuElement);
             System.out.println("Do you want to type another Element? Y/N");
             Scanner scanner =  new Scanner(System.in);
-            String s = scanner.nextLine().toUpperCase();
-            switch (s) {
-                case "Y":
-                    setSudokuElement();
-                case "N":
-                    isNewelement = false;
-                    break;
-                default:
-                    System.out.println("Wrong data");
+            while (isNewelement) {
+                String s = scanner.nextLine().toUpperCase();
+                switch (s) {
+                    case "Y":
+                        setSudokuElement();
+                    case "N":
+                        isNewelement = false;
+                        break;
+                    default:
+                        System.out.println("Wrong data");
+                }
             }
+            break;
         }
     }
 

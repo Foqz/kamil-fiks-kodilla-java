@@ -3,7 +3,9 @@ package com.kodilla.sudoku;
 import java.util.ArrayList;
 
 public class SudokuRow {
+
     ArrayList<SudokuElement> columns = new ArrayList<>();
+
     public SudokuRow() {
         for(int c = 1; c < 10; c++) {
             columns.add(new SudokuElement(-1));

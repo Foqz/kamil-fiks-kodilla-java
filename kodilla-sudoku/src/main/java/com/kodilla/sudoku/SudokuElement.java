@@ -16,17 +16,12 @@ public class SudokuElement {
             }
         }
     }
-    @Override
-    public String toString() {
-        if (value == -1) {
-            return "   ";
-        } else {
-            return " "+ value + " ";
-        }
-    }
+
+
     public int getValue() {
         return value;
     }
+
     public void setValue(int value) {
         this.value = value;
         possibles.clear();
@@ -36,5 +31,14 @@ public class SudokuElement {
     }
     public List<Integer> getPossibles() {
         return possibles;
+    }
+
+    @Override
+    public String toString() {
+        if (value == -1) {
+            return "   ";
+        } else {
+            return " "+ value + " ";
+        }
     }
 }

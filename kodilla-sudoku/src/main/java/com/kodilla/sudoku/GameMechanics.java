@@ -1,11 +1,8 @@
 package com.kodilla.sudoku;
 
-import java.util.Scanner;
-
 public class GameMechanics{
 
     private static final Integer EMPTY = -1;
-
 
     private boolean isInRow(int row, Integer number,SudokuBoard sudokuBoard) {
         for(int i = 0; i <9 ; i++)
@@ -35,6 +32,7 @@ public class GameMechanics{
     private boolean isOk(int row, int col, Integer number,SudokuBoard sudokuBoard) {
         return !isInRow(row,number,sudokuBoard) && !isInCol(col,number,sudokuBoard) && !isInBox(row,col,number,sudokuBoard);
     }
+
     boolean solve(SudokuBoard sudokuBoard) {
         boolean changed = true;
         while (changed) {
@@ -47,7 +45,6 @@ public class GameMechanics{
                                 sudokuBoard.getSudokuElement(row, col).getPossibles().remove(num);
                             }
                         }
-
                     }
                 }
             }
@@ -58,12 +55,28 @@ public class GameMechanics{
                             sudokuBoard.getSudokuElement(row, col).setValue(sudokuBoard.getSudokuElement(row, col).getPossibles().get(0));
                             changed = true;
                         }
-
                     }
                 }
             }
         }
-        return true;
+        boolean isSolved = false;
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                if (sudokuBoard.getSudokuElement(row, col).getValue() == EMPTY) {
+                    isSolved =false;
+                } else {
+                    isSolved = true;
+                }
+            }
+        }
+        if (isSolved) {
+            System.out.println("Sudoku has been solved");
+            System.out.println(sudokuBoard);
+            return true;
+        } else {
+            System.out.println("Sudoku unsolvable, please try to fill it again");
+            return false;
+        }
     }
 
     public SudokuBoard exampleFill(SudokuBoard sudokuBoard) {
