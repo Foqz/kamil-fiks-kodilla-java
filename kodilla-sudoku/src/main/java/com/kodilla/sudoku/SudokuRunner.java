@@ -10,8 +10,11 @@ public class SudokuRunner {
         UserDialogs userDialogs = new UserDialogs();
         GameMechanics gameMechanics = new GameMechanics();
 
-        UserOptions choice = userDialogs.welcomePrinter();
-        userDialogs.choicesOperator(choice,gameMechanics,sudokuBoard);
-        userDialogs.solver(sudokuBoard,userDialogs,gameMechanics);
+        UserOptions choiceStart = userDialogs.welcomeChoice();
+        gameMechanics.choicesOperator(choiceStart,gameMechanics,sudokuBoard);
+        UserOptions choiceSolve = userDialogs.solveChoice();
+        gameMechanics.solver(choiceSolve,sudokuBoard,userDialogs);
+        UserOptions choiceEnd = userDialogs.endChoice();
+        gameMechanics.choicesOperator(choiceEnd,gameMechanics,sudokuBoard);
     }
 }

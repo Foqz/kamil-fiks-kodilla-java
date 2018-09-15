@@ -78,6 +78,24 @@ public class GameMechanics{
             return false;
         }
     }
+    public void choicesOperator(UserOptions userOptions, GameMechanics gameMechanics, SudokuBoard sudokuBoard) {
+        if (userOptions == UserOptions.EXAMPLE) {
+            gameMechanics.exampleFill(sudokuBoard);
+            System.out.println(sudokuBoard);
+        } else if (userOptions == UserOptions.OWN_BOARD) {
+            sudokuBoard.setSudokuElement();
+            System.out.println("Your current board looks like this");
+            System.out.println(sudokuBoard);
+        }
+    }
+
+
+    public void solver(UserOptions userOptions,SudokuBoard sudokuBoard, UserDialogs userDialogs) {
+            if (userOptions == UserOptions.SOLVE) {
+                solve(sudokuBoard);
+                userDialogs.endChoice();
+            }
+        }
 
     public SudokuBoard exampleFill(SudokuBoard sudokuBoard) {
         sudokuBoard.getSudokuElement(0,0).setValue(2);

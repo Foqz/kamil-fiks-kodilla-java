@@ -17,7 +17,6 @@ public class SudokuElement {
         }
     }
 
-
     public int getValue() {
         return value;
     }
