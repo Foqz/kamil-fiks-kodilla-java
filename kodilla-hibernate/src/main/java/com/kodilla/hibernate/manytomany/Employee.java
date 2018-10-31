@@ -4,11 +4,21 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-
-@NamedQuery(
-        name = "Employee.searchEmployeeWithLastName",
-        query = "FROM Employee WHERE lastname = :LASTNAME"
+@NamedNativeQuery(
+        name = "Employee.searchEmployeeWithLastNameFragment",
+        query = "SELECT * FROM EMPLOYEES WHERE LASTNAME LIKE :LETTERS " ,
+        resultClass = Employee.class
 )
+@NamedQueries({
+//        @NamedQuery(
+//                name = "Employee.searchEmployeeWithLastNameFragment",
+//                query = "FROM Employee WHERE lastname LIKE :LETTERS"
+//        ),
+        @NamedQuery(
+                name = "Employee.searchEmployeeWithLastName",
+                query = "FROM Employee WHERE lastname = :LASTNAME")
+        })
+
 @Entity
 @Table(name = "EMPLOYEES")
 public class Employee {
