@@ -25,22 +25,22 @@ public class TaskListDaoTestSuite {
     private static final String DESCRIPTION = "Test Description";
     private static final String LISTNAME = "Test list name";
 
-    @Test
-    public void testFindByListName() {
-        //Given
-        TaskList taskList = new TaskList(LISTNAME,DESCRIPTION);
-        taskListDao.save(taskList);
-
-        //When
-        List<TaskList> readTaskLists = taskListDao.findByListName(LISTNAME);
-
-        //Then
-        Assert.assertEquals(1,readTaskLists.size());
-
-        //Cleanup
-        int id = readTaskLists.get(0).getId();
-        taskListDao.delete(id);
-    }
+//    @Test
+//    public void testFindByListName() {
+//        //Given
+//        TaskList taskList = new TaskList(LISTNAME,DESCRIPTION);
+//        taskListDao.save(taskList);
+//
+//        //When
+//        List<TaskList> readTaskLists = taskListDao.findByListName(LISTNAME);
+//
+//        //Then
+//        Assert.assertEquals(1,readTaskLists.size());
+//
+//        //Cleanup
+//        int id = readTaskLists.get(0).getId();
+//        taskListDao.delete(id);
+//    }
     @Test
     public void testTaskListDaoSaveWithTasks() {
         //Given
