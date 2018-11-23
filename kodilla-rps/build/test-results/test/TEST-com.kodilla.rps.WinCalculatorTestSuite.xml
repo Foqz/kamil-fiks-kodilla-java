@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.kodilla.rps.WinCalculatorTestSuite" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-08-30T10:53:45" hostname="DESKTOP-4RNOU32" time="0.004">
+<testsuite name="com.kodilla.rps.WinCalculatorTestSuite" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-11-23T20:24:51" hostname="DESKTOP-4RNOU32" time="0.005">
   <properties/>
-  <testcase name="testWinCalculatorCompareMoves" classname="com.kodilla.rps.WinCalculatorTestSuite" time="0.004"/>
+  <testcase name="testWinCalculatorCompareMoves" classname="com.kodilla.rps.WinCalculatorTestSuite" time="0.005"/>
   <system-out><![CDATA[Test Suite: begin
 Test Case: begin
 Testing if methon CompareMoves works

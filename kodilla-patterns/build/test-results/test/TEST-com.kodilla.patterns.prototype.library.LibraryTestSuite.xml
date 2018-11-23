@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.kodilla.patterns.prototype.library.LibraryTestSuite" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-08-30T10:53:44" hostname="DESKTOP-4RNOU32" time="0.003">
+<testsuite name="com.kodilla.patterns.prototype.library.LibraryTestSuite" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-11-23T20:24:43" hostname="DESKTOP-4RNOU32" time="0.004">
   <properties/>
-  <testcase name="testGetBooks" classname="com.kodilla.patterns.prototype.library.LibraryTestSuite" time="0.003"/>
+  <testcase name="testGetBooks" classname="com.kodilla.patterns.prototype.library.LibraryTestSuite" time="0.004"/>
   <system-out><![CDATA[Library{name='Library number 1', books=[Book{title='Book3', author='Author3', publicationDate=1997-10-23}, Book{title='Book1', author='Author1', publicationDate=1991-02-12}]}
 Library{name='Library number 2', books=[Book{title='Book3', author='Author3', publicationDate=1997-10-23}, Book{title='Book1', author='Author1', publicationDate=1991-02-12}]}
-Library{name='Library number 3', books=[Book{title='Book1', author='Author1', publicationDate=1991-02-12}, Book{title='Book3', author='Author3', publicationDate=1997-10-23}, Book{title='Book2', author='Author2', publicationDate=1994-12-05}]}
+Library{name='Library number 3', books=[Book{title='Book1', author='Author1', publicationDate=1991-02-12}, Book{title='Book2', author='Author2', publicationDate=1994-12-05}, Book{title='Book3', author='Author3', publicationDate=1997-10-23}]}
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
